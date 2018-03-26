@@ -1,4 +1,4 @@
-package fungjai.intern.bosstanayot.internfungjaikotlin.MusicList
+package fungjai.intern.bosstanayot.internfungjaikotlin.musicList
 
 import android.app.ProgressDialog
 import android.content.Context
@@ -11,22 +11,21 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MusicListCall (val applicationContext: Context, val recyclerView: RecyclerView, val progressDialog: ProgressDialog){
-
+class MusicListCall(val applicationContext: Context, val recyclerView: RecyclerView, val progressDialog: ProgressDialog) {
     fun createRetrofitService() {
-         val client = OkHttpClient().newBuilder().build()
-         val retrofit = Retrofit
-                 .Builder()
-                 .client(client)
-                 .baseUrl("https://us-central1-fjawesomeintern.cloudfunctions.net")
-                 .addConverterFactory(GsonConverterFactory.create())
-                 .build()
-         val musicListApi: MusicListApi = retrofit.create(MusicListApi::class.java)
+        val client = OkHttpClient().newBuilder().build()
+        val retrofit = Retrofit
+                .Builder()
+                .client(client)
+                .baseUrl("https://us-central1-fjawesomeintern.cloudfunctions.net")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        val musicListApi: MusicListApi = retrofit.create(MusicListApi::class.java)
 
-         callMusicList(musicListApi)
+        callMusicList(musicListApi)
     }
 
-    fun callMusicList(musicListApi: MusicListApi){
+    private fun callMusicList(musicListApi: MusicListApi) {
         val call: Call<List<MusicListData>> = musicListApi.getMusicList()
         call.enqueue(object : Callback<List<MusicListData>> {
             override fun onFailure(call: Call<List<MusicListData>>, t: Throwable?) {
@@ -45,7 +44,7 @@ class MusicListCall (val applicationContext: Context, val recyclerView: Recycler
         })
     }
 
-    fun createRecycler(musicListData: List<MusicListData>){
+    private fun createRecycler(musicListData: List<MusicListData>) {
         val musicListAdapter = MusicListAdapter(applicationContext, musicListData)
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
         recyclerView.adapter = musicListAdapter

@@ -1,4 +1,4 @@
-package fungjai.intern.bosstanayot.internfungjaikotlin.MusicList
+package fungjai.intern.bosstanayot.internfungjaikotlin.musicList
 
 import retrofit2.Call
 import retrofit2.http.GET
