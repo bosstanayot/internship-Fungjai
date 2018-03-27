@@ -11,7 +11,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MusicListCall(val applicationContext: Context, val recyclerView: RecyclerView, val progressDialog: ProgressDialog) {
+class MusicListCall(val applicationContext: Context, val recyclerView: RecyclerView, @Suppress("DEPRECATION") val progressDialog: ProgressDialog) {
     fun createRetrofitService() {
         val client = OkHttpClient().newBuilder().build()
         val retrofit = Retrofit

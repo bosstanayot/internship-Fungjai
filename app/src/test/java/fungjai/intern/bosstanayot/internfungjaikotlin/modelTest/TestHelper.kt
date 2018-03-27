@@ -13,7 +13,7 @@ class TestHelper {
 
     @Throws(Exception::class)
     fun getStringFromFile(fileName: String): String {
-        val filePath: String = System.getProperty("user.dir") + "/app/src/test/java/fungjai/intern/bosstanayot/internfungjaikotlin/modelTest/"
+        val filePath: String = System.getProperty("user.dir") + "/src/test/java/fungjai/intern/bosstanayot/internfungjaikotlin/modelTest/"
         val stream: InputStream = FileInputStream(filePath + fileName)
         val ret: String = stream.readTextAndClose()
         stream.close()

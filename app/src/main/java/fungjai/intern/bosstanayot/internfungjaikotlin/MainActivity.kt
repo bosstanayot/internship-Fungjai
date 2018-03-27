@@ -14,12 +14,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         bindView()
 
+        @Suppress("DEPRECATION")
         val progressDialog = ProgressDialog.show(this, "Dowload Data", "Loading...", true, false)
         MusicListCall(applicationContext, recyclerView, progressDialog).createRetrofitService()
     }
 
     private fun bindView() {
-        recyclerView = findViewById<RecyclerView>(R.id.data_list)
+        recyclerView = findViewById(R.id.data_list)
     }
 
 }
