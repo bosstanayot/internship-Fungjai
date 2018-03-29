@@ -22,8 +22,8 @@ import fungjai.intern.bosstanayot.internfungjaikotlin.R
 
 
 class MusicListAdapter(var context: Context, var musicList: List<MusicListData>?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    lateinit var imageView: ImageView
-    lateinit var progressBar: ProgressBar
+    private lateinit var imageView: ImageView
+    private lateinit var progressBar: ProgressBar
 
     class ZineHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val zineTitle: TextView = itemView.findViewById(R.id.zine_title)
