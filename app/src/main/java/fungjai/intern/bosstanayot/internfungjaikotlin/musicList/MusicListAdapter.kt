@@ -26,31 +26,29 @@ class MusicListAdapter(var context: Context, var musicList: List<MusicListData>?
     lateinit var progressBar: ProgressBar
 
     class ZineHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val zineTitle = itemView.findViewById<TextView>(R.id.zine_title)
-        val description = itemView.findViewById<TextView>(R.id.description)
-        val cover = itemView.findViewById<ImageView>(R.id.zine_cover)
-        val progressBar = itemView.findViewById<ProgressBar>(R.id.progressbar)
-        val cardView = itemView.findViewById<CardView>(R.id.cardView)
+        val zineTitle: TextView = itemView.findViewById(R.id.zine_title)
+        val description: TextView = itemView.findViewById(R.id.description)
+        val cover: ImageView = itemView.findViewById(R.id.zine_cover)
+        val progressBar: ProgressBar = itemView.findViewById(R.id.progressbar)
+        val cardView: CardView = itemView.findViewById(R.id.cardView)
     }
 
     class TrackHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val song = itemView.findViewById<TextView>(R.id.song)
-        val artist = itemView.findViewById<TextView>(R.id.artist)
-        val cover = itemView.findViewById<ImageView>(R.id.track_cover)
-        val progressBar = itemView.findViewById<ProgressBar>(R.id.progressbar)
+        val song: TextView = itemView.findViewById(R.id.song)
+        val artist: TextView = itemView.findViewById(R.id.artist)
+        val cover: ImageView = itemView.findViewById(R.id.track_cover)
+        val progressBar: ProgressBar = itemView.findViewById(R.id.progressbar)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
+        return when (viewType) {
             0 -> {
                 val inflater: View = LayoutInflater.from(parent.context).inflate(R.layout.track_item, null, false)
-                val trackHolder = TrackHolder(inflater)
-                return trackHolder
+                TrackHolder(inflater)
             }
             else -> {
                 val inflater: View = LayoutInflater.from(parent.context).inflate(R.layout.zine_item, null, false)
-                val zineHolder = ZineHolder(inflater)
-                return zineHolder
+                ZineHolder(inflater)
             }
         }
     }
@@ -66,8 +64,8 @@ class MusicListAdapter(var context: Context, var musicList: List<MusicListData>?
                 imageView = trackHolder.cover
                 progressBar = trackHolder.progressBar
 
-                trackHolder.artist.setText(musicList?.get(position)?.artist)
-                trackHolder.song.setText(musicList?.get(position)?.song)
+                trackHolder.artist.text = musicList?.get(position)?.artist
+                trackHolder.song.text = musicList?.get(position)?.song
                 setImgFromUrl(musicList?.get(position)?.cover, progressBar, imageView)
             }
             1 -> {
@@ -75,8 +73,8 @@ class MusicListAdapter(var context: Context, var musicList: List<MusicListData>?
                 imageView = zineHolder.cover
                 progressBar = zineHolder.progressBar
 
-                zineHolder.zineTitle.setText(musicList?.get(position)?.title)
-                zineHolder.description.setText(musicList?.get(position)?.description)
+                zineHolder.zineTitle.text = musicList?.get(position)?.title
+                zineHolder.description.text = musicList?.get(position)?.description
                 setImgFromUrl(musicList?.get(position)?.cover, progressBar, imageView)
 
                 zineHolder.cardView.setOnClickListener {
@@ -92,9 +90,9 @@ class MusicListAdapter(var context: Context, var musicList: List<MusicListData>?
     }
 
     override fun getItemViewType(position: Int): Int {
-        when (musicList?.get(position)?.type) {
-            "track" -> return 0
-            else -> return 1
+        return when (musicList?.get(position)?.type) {
+            "track" -> 0
+            else -> 1
         }
     }
 

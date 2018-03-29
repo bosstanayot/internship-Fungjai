@@ -34,7 +34,6 @@ class MusicListCall(val applicationContext: Context, val recyclerView: RecyclerV
 
             override fun onResponse(call: Call<List<MusicListData>>, response: Response<List<MusicListData>>) {
                 if (response.isSuccessful) {
-
                     val musicListData: List<MusicListData>? = response.body()
 
                     createRecycler(musicListData)
