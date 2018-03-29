@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import fungjai.intern.bosstanayot.internfungjaikotlin.musicList.MusicListCall
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var recyclerView: RecyclerView
+    lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

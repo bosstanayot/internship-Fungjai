@@ -20,13 +20,13 @@ class MusicListCall(val applicationContext: Context, val recyclerView: RecyclerV
                 .baseUrl("https://us-central1-fjawesomeintern.cloudfunctions.net")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-        val musicListApi: MusicListApi = retrofit.create(MusicListApi::class.java)
+        val musicListApi = retrofit.create(MusicListApi::class.java)
 
         callMusicList(musicListApi)
     }
 
     private fun callMusicList(musicListApi: MusicListApi) {
-        val call: Call<List<MusicListData>> = musicListApi.getMusicList()
+        val call = musicListApi.getMusicList()
         call.enqueue(object : Callback<List<MusicListData>> {
             override fun onFailure(call: Call<List<MusicListData>>, t: Throwable?) {
 
@@ -34,7 +34,8 @@ class MusicListCall(val applicationContext: Context, val recyclerView: RecyclerV
 
             override fun onResponse(call: Call<List<MusicListData>>, response: Response<List<MusicListData>>) {
                 if (response.isSuccessful) {
-                    val musicListData: List<MusicListData> = response.body()!!
+
+                    val musicListData: List<MusicListData>? = response.body()
 
                     createRecycler(musicListData)
                     progressDialog.dismiss()
@@ -44,7 +45,7 @@ class MusicListCall(val applicationContext: Context, val recyclerView: RecyclerV
         })
     }
 
-    private fun createRecycler(musicListData: List<MusicListData>) {
+    private fun createRecycler(musicListData: List<MusicListData>?) {
         val musicListAdapter = MusicListAdapter(applicationContext, musicListData)
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
         recyclerView.adapter = musicListAdapter

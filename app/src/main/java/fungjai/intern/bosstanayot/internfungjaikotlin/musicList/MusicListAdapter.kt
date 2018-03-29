@@ -21,9 +21,9 @@ import com.bumptech.glide.request.target.Target
 import fungjai.intern.bosstanayot.internfungjaikotlin.R
 
 
-class MusicListAdapter(var context: Context, var musicList: List<MusicListData>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private lateinit var imageView: ImageView
-    private lateinit var progressBar: ProgressBar
+class MusicListAdapter(var context: Context, var musicList: List<MusicListData>?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    lateinit var imageView: ImageView
+    lateinit var progressBar: ProgressBar
 
     class ZineHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val zineTitle = itemView.findViewById<TextView>(R.id.zine_title)
@@ -56,49 +56,49 @@ class MusicListAdapter(var context: Context, var musicList: List<MusicListData>)
     }
 
     override fun getItemCount(): Int {
-        return musicList.size
+        return musicList!!.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
             0 -> {
-                val trackHolder: TrackHolder = holder as TrackHolder
+                val trackHolder = holder as TrackHolder
                 imageView = trackHolder.cover
                 progressBar = trackHolder.progressBar
 
-                trackHolder.artist.setText(musicList[position].artist)
-                trackHolder.song.setText(musicList[position].song)
-                setImgFromUrl(musicList[position].cover, progressBar, imageView)
+                trackHolder.artist.setText(musicList?.get(position)?.artist)
+                trackHolder.song.setText(musicList?.get(position)?.song)
+                setImgFromUrl(musicList?.get(position)?.cover, progressBar, imageView)
             }
             1 -> {
-                val zineHolder: ZineHolder = holder as ZineHolder
+                val zineHolder = holder as ZineHolder
                 imageView = zineHolder.cover
                 progressBar = zineHolder.progressBar
 
-                zineHolder.zineTitle.setText(musicList[position].title)
-                zineHolder.description.setText(musicList[position].description)
-                setImgFromUrl(musicList[position].cover, progressBar, imageView)
+                zineHolder.zineTitle.setText(musicList?.get(position)?.title)
+                zineHolder.description.setText(musicList?.get(position)?.description)
+                setImgFromUrl(musicList?.get(position)?.cover, progressBar, imageView)
 
                 zineHolder.cardView.setOnClickListener {
-                    openBrowserWithUrl(musicList[position].url)
+                    openBrowserWithUrl(musicList?.get(position)?.url)
                 }
             }
         }
     }
 
-    private fun openBrowserWithUrl(url: String) {
+    private fun openBrowserWithUrl(url: String?) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         context.startActivity(browserIntent)
     }
 
     override fun getItemViewType(position: Int): Int {
-        when (musicList[position].type) {
+        when (musicList?.get(position)?.type) {
             "track" -> return 0
             else -> return 1
         }
     }
 
-    private fun setImgFromUrl(imgUrl: String, progressBarHolder: ProgressBar, imgView: ImageView) {
+    private fun setImgFromUrl(imgUrl: String?, progressBarHolder: ProgressBar, imgView: ImageView) {
         Glide.with(context)
                 .load(imgUrl)
                 .listener(object : RequestListener<Drawable> {
